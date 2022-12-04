@@ -1,0 +1,38 @@
+steps:
+  - id: load-secrets
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    args: [
+        '-c',
+        "gcloud secrets --project ${PROJECT_ID} versions access latest \
+            --secret=$_DOPPLER_TOKEN_SECRET \
+            --format='get(payload.data)' | \
+            tr '_-' '/+' | base64 -d > blueprint/token.txt"
+    ]
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: envs/${_ENV}
+    args:
+      - '-c'
+      - |
+        terraform init
+    id: terraform init
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: envs/${_ENV}
+    args:
+      - '-c'
+      - |
+        terraform apply -input=false -auto-approve
+    id: terraform apply
+    entrypoint: sh
+    
+substitutions:
+  _ENV: dev
+  _DOPPLER_TOKEN_SECRET: DOPPLER_TOKEN
+
+logsBucket: 'gs://doppler-tf-log'
+
+options:
+  logging: GCS_ONLY
+timeout: 3600s
+

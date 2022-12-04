@@ -1,0 +1,25 @@
+.DS_Store
+# Terraform files
+.terraform/
+# IDE
+.idea/
+.vscode/
+.git/
+# Misc
+.env*
+tmp/
+docker-vars-*.env
+tf*plan
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+*.log
+crash.log
+*.tfstate
+*.tfstate.*
+*.terraform.lock.hcl*
+*.json*
+*.txt*
