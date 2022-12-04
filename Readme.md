@@ -37,6 +37,13 @@ provider "doppler" {
 4. doppler_service_token
 5. doppler_secret
 
+#### Random DB password has been created in root module as below which is referenced inside doppler secret value.
+```
+resource "random_password" "db_password" {
+  length  = 32
+  special = true
+}
+```
 ### doppler_project
 **To create a doppler_project in new env pass the required attributes in /envs/dev/main.tf as mentioned below** 
 ```
