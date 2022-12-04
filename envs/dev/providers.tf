@@ -9,5 +9,5 @@ terraform {
 }
 
 provider "doppler" {
-  doppler_token = file("../../../blueprint/token.txt")
+  doppler_token = file("../../blueprint/token.txt")
 } 

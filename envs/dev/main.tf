@@ -11,7 +11,7 @@ resource "random_password" "db_password" {
 ######################################
 
 module "dev_infra" {
-  source               = "../../../blueprint/modules/doppler"
+  source               = "../../blueprint/modules/doppler"
   doppler_project      = "tf-test-project"
   doppler_environment  = "development"
   root_config          = "dev"
