@@ -29,7 +29,7 @@ provider "doppler" {
 
 #### Update the values accordingly in /envs/main.tf
 
-# Following are the terraform resources for which /blueprint folder act as child module and is called in /envs/dev/main.tf
+#### Following are the terraform resources for which /blueprint folder act as child module and is called in /envs/dev/main.tf
 
 1. doppler_project
 2. doppler_environment
