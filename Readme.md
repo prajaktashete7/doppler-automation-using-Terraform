@@ -76,6 +76,27 @@ resource "random_password" "db_password" {
     "DB_PASSWORD" = random_password.db_password.result
   }
  ```
+Till now we have prepared our code now, let's take a look at cloudbuild file to change the required values
+#### Cloud Build Files
+Store the doppler token from GCP secret manager to  blueprint/token.txt file with the help of below command:
+```
+gcloud secrets --project ${PROJECT_ID} versions access latest \
+--secret=$_DOPPLER_TOKEN_SECRET \
+--format='get(payload.data)' | \
+tr '_-' '/+' | base64 -d > blueprint/token.txt
+```
+Execute terraform init with 
+```
+terraform init
+```
+Execute terraform apply with:
+```
+terraform apply -input=false -auto-approve
+```
+Note the substitution variable ***_ENV: dev*** this can be set based on your folder structure. For example if you want to execute the other env from folder stg you can replace the variable as per your requirement.
+This helps in deploying code in multiple envs.
+
+All the terraform logs has been stored in **gs://doppler-tf-log** GCS bucket.
 
 In this way we have created doppler resources (project, env, config, service_token , secrets) via child module defined at blueprint/modules/doppler
 
